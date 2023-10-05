@@ -17,10 +17,20 @@ public class Animal {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Animal animal = (Animal) o;
-        return age == animal.age && isMammal == animal.isMammal && Objects.equals(family, animal.family) && Objects.equals(name, animal.name);
+    // Check if the objects are identical (same memory reference)
+    if (this == o) return true;
+    
+    // Check if 'o' is null or not an instance of the same class
+    if (o == null || getClass() != o.getClass()) return false;
+    
+    // Cast 'o' to an 'Animal' object
+    Animal animal = (Animal) o;
+    
+    // Compare the attributes of 'this' and 'animal' for equality
+    return age == animal.age &&
+           isMammal == animal.isMammal &&
+           Objects.equals(family, animal.family) &&
+           Objects.equals(name, animal.name);
     }
 
     @Override
