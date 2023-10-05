@@ -4,6 +4,12 @@ public class Zoo {
     List<Animal> animals;
     private String name;
     private String city;
+    //      Instruction 14 :
+
+        /*
+        final private int nbrCages = 25;
+         */
+
     final private int nbrCages = 25;
 
 
