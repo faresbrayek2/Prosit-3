@@ -1,30 +1,22 @@
-import java.util.ArrayList;
-import java.util.List;
 public class Zoo {
-    List<Animal> animals;
+    private Animal[] animals;
     private String name;
     private String city;
-    //      Instruction 14 :
-
-        /*
-        final private int nbrCages = 25;
-         */
-
     final private int nbrCages = 25;
-
+    private int animalCount = 0; // Track the number of animals in the zoo.
 
     public Zoo(String name, String city) {
         this.name = name;
         this.city = city;
-        this.animals = new  ArrayList<Animal>();
+        this.animals = new Animal[nbrCages]; // Initialize the array.
     }
 
     @Override
     public String toString() {
         return "Zoo{" +
-                "name=" + name + "\n" +
-                ", city=" + city + "\n" +
-                ", nbrCages=" + nbrCages +
+                "\nname='" + name + '\'' +
+                "\ncity='" + city + '\'' +
+                "\nnbrCages=" + nbrCages +
                 '}';
     }
 
@@ -35,44 +27,59 @@ public class Zoo {
     }
 
     int searchAnimal(Animal animalToSearch) {
-        for (Animal animal : animals)
-        {
-            if (animal.name.equals(animalToSearch.name)){
-                return  animals.indexOf(animalToSearch) ;
+        for (int i = 0; i < animalCount; i++) {
+            if (animals[i].equals(animalToSearch)) {
+                return i;
             }
         }
-        return  -1;
+        return -1;
     }
 
     boolean addAnimal(Animal animal) {
-        if (animals.size() < nbrCages && !animals.contains(animal) ) {
-            animals.add(animal);
-            return true;
+        if (animalCount < nbrCages) {
+            boolean isDuplicate = false;
+            for (int i = 0; i < animalCount; i++) {
+                if (animals[i].equals(animal)) {
+                    isDuplicate = true;
+                    break;
+                }
+            }
+            if (!isDuplicate) {
+                animals[animalCount] = animal;
+                animalCount++; // Increment the count.
+                return true;
+            }
         }
         return false;
     }
 
-
-
     void displayAnimals() {
         System.out.println("Animaux dans le zoo:");
-        for (Animal animal : animals)
-        {
-            System.out.println(animal);
+        for (int i = 0; i < animalCount; i++) {
+            System.out.println(animals[i]);
         }
     }
 
     boolean removeAnimal(Animal animalToRemove) {
-        return  animals.remove(animalToRemove);
+        for (int i = 0; i < animalCount; i++) {
+            if (animals[i].equals(animalToRemove)) {
+                // Shift remaining elements to the left to fill the gap.
+                for (int j = i; j < animalCount - 1; j++) {
+                    animals[j] = animals[j + 1];
+                }
+                animals[animalCount - 1] = null; // Remove the reference to the last animal.
+                animalCount--; // Decrement the count.
+                return true;
+            }
+        }
+        return false;
     }
-
 
     boolean isZooFull() {
-        return animals.size() == nbrCages;
+        return animalCount == nbrCages;
     }
 
-
     Zoo comparerZoo(Zoo myZoo, Zoo secondZoo) {
-        return myZoo.animals.size() < secondZoo.animals.size() ? secondZoo:myZoo;
+        return myZoo.animalCount < secondZoo.animalCount ? secondZoo : myZoo;
     }
 }
