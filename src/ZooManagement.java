@@ -223,7 +223,7 @@ public class ZooManagement {
          */
 
 //      Instruction 15 :
-        System.out.println("------------------------ Instruction 15 -------------------------");
+        System.out.println("------------------------ Instruction 16 -------------------------");
 
         boolean isZooFull = myZoo.isZooFull();
         if (isZooFull) {
